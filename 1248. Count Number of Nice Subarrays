@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        return (findsum(nums,k)-findsum(nums,k-1));
+    }
+    int findsum(vector<int>&v,int k){
+        if(k<0) return 0;
+        int l=0,r=0,n=v.size(),cnt=0,sum=0;
+        while(r<n){
+            sum+=v[r]%2;
+            if(sum>k){
+                while(sum>k){
+                    sum-=v[l]%2;
+                    l++;
+                }
+            }
+            cnt+=r-l+1;r++;
+        }
+        return cnt;
+    }
+};
